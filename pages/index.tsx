@@ -1,51 +1,29 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { auth } from "../firebase/auth";
-
-type Props = {};
-
-export const getStaticProps = () => {
-  // console.log("current", auth.currentUser);
-
-  // if (!auth.currentUser) {
-  //   return {
-  //     redirect: {
-  //       destination: "/login",
-  //       permament: "false",
-  //     },
-  //   };
-  // }
-
-  return {
-    props: {
-      name: "yo",
-    },
-  };
-};
+import { setUser } from "../redux/slices/user";
 
 const Home = ({ name }: any) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const sub = auth.onAuthStateChanged((user) => {
       if (!user) {
         router.replace("/login");
+      } else {
+        dispatch(
+          setUser({ displayName: user.displayName, photoUrl: user.photoURL })
+        );
+        router.replace("/dashboard");
       }
     });
+
+    return sub;
   }, []);
 
-  return (
-    <div>
-      home page !!!
-      <button
-        onClick={() => {
-          auth.signOut();
-        }}
-      >
-        sign out
-      </button>
-    </div>
-  );
+  return null;
 };
 
 export default Home;

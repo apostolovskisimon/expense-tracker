@@ -1,0 +1,29 @@
+// colors
+$whiteColor: white;
+$blackColor: black;
+$beige: #f3e9d2;
+$lightGreen: #88d498;
+$green: #1a936f;
+$darkGreen:#114b5f;
+$lightOrange: #ffb997;
+$lightRed: #f67e7d;
+$lightPurple:#843b62;
+$veryDarkBlue: #0b032d;
+// colors
+//
+// font-sizes
+$fsSmall: 0.75rem;
+$fsNormal: 1rem;
+$fsNormalBig: 1.25rem;
+$fsBigger: 1.5rem;
+$fsBig: 2rem;
+// font-sizes
+//
+// imports
+@import 'normalize';
+@import 'mixins/responsiveness';
+@import 'home/home';
+@import 'nav/nav';
+@import 'sidemenu/sidemenu';
+// imports
+//

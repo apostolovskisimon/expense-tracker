@@ -5,8 +5,10 @@ import {
   signInWithEmailAndPassword,
   GithubAuthProvider,
 } from "firebase/auth";
-import Router from "next/dist/server/router";
+import Router, { Route } from "next/dist/server/router";
 import { NextRouter, RouterEvent } from "next/router";
+import { Dispatch } from "react";
+import { resetUser } from "../../redux/slices/user";
 import { FIREBASE_APP } from "../client";
 
 const GoogleProvider = new GoogleAuthProvider();
@@ -61,3 +63,10 @@ export const SIGN_IN_DEFAULT = ({ email, password }: signInProps) =>
       const errorMessage = error.message;
       // ..
     });
+
+export const LOGOUT = (dispatch: Dispatch<any>, router: NextRouter): void => {
+  router.replace("/login");
+  auth.signOut().then(() => {
+    dispatch(resetUser());
+  });
+};

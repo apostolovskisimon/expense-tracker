@@ -1,0 +1,58 @@
+    .sidemenu {
+        width: 80px;
+        border-right: 2px solid black;
+        display: flex;
+        flex-direction: column;
+        padding-top: 15px;
+        @include tablet {
+            width: 175px;
+        }
+        &-link {
+            width: 100%;
+            height: 36px;
+            .nav-link {
+                width: 100%;
+                @include displayFlex;
+            }
+            @include displayFlex;
+            margin-bottom: 15px;
+            @include tablet {
+                cursor: pointer;
+                justify-content: unset;
+                padding-left: 10px;
+                .nav-link {
+                    @include displayFlex;
+                    justify-content: unset;
+                }
+            }
+        }
+        &-icon {
+            margin: 0 auto;
+            @include tablet {
+                margin: 0;
+                margin-right: 10px;
+            }
+        }
+        &-title {
+            display: none;
+            @include tablet {
+                display: block;
+            }
+        }
+        &-section-title {
+            display: none;
+            @include tablet {
+                display: block;
+                margin-bottom: 10px;
+                margin-left: 10px;
+                color: gray;
+            }
+        }
+    }
+    
+    .active {
+        color: $darkGreen;
+        .sidemenu-icon {
+            fill: $darkGreen;
+        }
+    }
