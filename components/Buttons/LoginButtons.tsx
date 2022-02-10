@@ -1,5 +1,6 @@
 import React from "react";
 import { FaGoogle, FaArrowCircleRight, FaGithub } from "react-icons/fa";
+import Loader from "../Loader";
 type Props = {
   text: string;
   type?: "button" | "submit";
@@ -7,6 +8,8 @@ type Props = {
   iconName?: string;
   light?: boolean;
   iconLeft?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
 };
 
 const LoginButtons = ({
@@ -16,9 +19,11 @@ const LoginButtons = ({
   type = "button",
   light,
   iconLeft = false,
+  loading = false,
+  disabled = false,
 }: Props) => {
   const standardStyle = {
-    color: light ? "black" : "white",
+    color: "white",
     size: 22,
   };
   const handleIcon = () => {
@@ -37,19 +42,18 @@ const LoginButtons = ({
     return "";
   };
   return (
-    <button
-      onClick={onClick}
-      type={type}
-      className={`${light ? "bg-white" : "bg-violet-700"} rounded-lg
-       flex pl-4 pr-4 justify-between items-center
-        h-14 w-full hover:bg-violet-600 active:bg-violet-600 
-        focus:outline-none focus:ring focus:ring-violet-500 duration-300 mt-5`}
-    >
-      <p className={`${light ? "text-black" : "text-white"} flex `}>
-        {iconLeft && <span className="mr-5">{handleIcon()}</span>}
-        {text}
-      </p>
-      {!iconLeft && <div>{handleIcon()}</div>}
+    <button onClick={onClick} type={type} className="btn-o" disabled={disabled}>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <p className="btn-text">
+            {iconLeft && <span className="icon">{handleIcon()}</span>}
+            {text}
+          </p>
+          {!iconLeft && <div>{handleIcon()}</div>}
+        </>
+      )}
     </button>
   );
 };

@@ -1,11 +1,14 @@
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoginButtons from "../../components/Buttons/LoginButtons";
-import LoginInput from "../../components/Inputs/LoginInputs";
+import Input from "../../components/Inputs/LoginInputs";
 import { auth, PROVIDER_SIGN_IN, SIGN_IN_DEFAULT } from "../../firebase/auth";
+import img from "../../public/run.gif";
 
-// : InferGetServerSidePropsType<typeof getServerSideProps>
+type Provider = "google" | "github";
 
 const Home = ({}) => {
   const [values, setValues] = useState({
@@ -13,69 +16,85 @@ const Home = ({}) => {
     password: "",
   });
 
+  const [loading, setLoading] = useState<string>("");
+
   const handleChange = (name: string, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value.trim() }));
   };
   const router = useRouter();
 
+  const handleLogin = (provider: Provider) => {
+    setLoading(provider);
+    PROVIDER_SIGN_IN(provider)
+      .then((res) => {
+        console.log("res", res);
+        router.push("/");
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(""));
+  };
+
   return (
     <>
       <Head>
-        <title>Expense Tracker</title>
+        <title>Login</title>
       </Head>
-      <div className="w-screen h-screen bg-black flex justify-center items-center">
-        <div className="h-full w-5/6 text-center p-8 flex flex-col">
-          <h1 className="text-white font-bold text-4xl">
-            Login to Your Account
-          </h1>
-          <p className="text-gray-300 m-6 ">
-            You will be able to enter and account for your all of your expenses
-          </p>
-          <div className="mt- flex items-center justify-evenly w-full h-3/6">
-            <div className="text-white w-2/5 h-3/6 flex flex-col justify-center ">
-              <LoginInput
-                name="email"
-                type="email"
-                placeholder="E-Mail"
-                iconName="person"
-                onChange={handleChange}
-                value={values.email}
-              />
-              <LoginInput
-                iconName="password"
-                name="password"
-                type="password"
-                placeholder="Password"
-                onChange={handleChange}
-                value={values.password}
-              />
-              <LoginButtons
-                onClick={() => {
-                  const { email, password } = values;
-                  SIGN_IN_DEFAULT({ email, password });
-                }}
-                text="Sign in"
-                iconName="arrow-right"
-              />
-              {/* <LoginInput name="email" type="email" placeholder="Your E-Mail" /> */}
-            </div>
 
-            <div className="text-white w-2/5 h-3/6  flex flex-col justify-center ">
+      <div className="onboarding-bg">
+        <div className="modal">
+          <h2>Log in</h2>
+          <p>Welcome, log in to continue to your personalized Tracker!</p>
+          <div className="info">
+            <Input
+              name="username"
+              onChange={handleChange}
+              iconName="person"
+              label="Username"
+            />
+            <Input
+              name="password"
+              onChange={handleChange}
+              iconName="password"
+              label="Password"
+              type="password"
+            />
+            <p>Or log in directly using:</p>
+            <div className="social">
               <LoginButtons
-                onClick={() => PROVIDER_SIGN_IN("google", router)}
-                text="Sign in with google instead"
+                onClick={() => handleLogin("google")}
+                text="Google"
                 iconName="google"
                 light
                 iconLeft
+                loading={loading === "google"}
+                disabled={!!loading}
               />
               <LoginButtons
-                onClick={() => PROVIDER_SIGN_IN("github", router)}
-                text="Sign in with github instead"
+                onClick={() => handleLogin("github")}
+                text="GitHub"
                 iconName="github"
                 light
+                disabled={!!loading}
                 iconLeft
+                loading={loading === "github"}
               />
             </div>
+            <div className="to-reg">
+              No account? Sign up by clicking <Link href="/register">here</Link>
+              .
+            </div>
+          </div>
+        </div>{" "}
+        <div className="modal-desc">
+          <h2>Expense Tracker</h2>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias
+            reprehenderit similique sunt quasi laudantium nostrum quibusdam
+            error deleniti voluptas quae odit, in quis, saepe eius nam facere
+            molestiae consectetur repellendus!
+          </p>
+          <div className="img">
+            <Image src={img} alt="" layout="fill" />
           </div>
         </div>
       </div>

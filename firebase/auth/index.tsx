@@ -23,26 +23,16 @@ export const auth = getAuth(FIREBASE_APP);
 // To apply the default browser preference instead of explicitly setting it.
 auth.useDeviceLanguage();
 
-export const PROVIDER_SIGN_IN = (
-  provider: "github" | "google",
-  router: NextRouter
-) =>
-  signInWithPopup(auth, providers[provider])
-    .then((result) => {
-      // const credential = GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential?.accessToken;
-      const user = result.user;
-      console.log("R E S U L T", result);
-      router.replace("/");
-    })
-    .catch((error) => {
-      console.error("error", error);
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.email;
-      // const credential = GoogleAuthProvider.credentialFromError(error);
-    });
+export const PROVIDER_SIGN_IN = (provider: "github" | "google") =>
+  new Promise((res, rej) => {
+    signInWithPopup(auth, providers[provider])
+      .then((result) => {
+        res(result);
+      })
+      .catch((error) => {
+        rej(error);
+      });
+  });
 
 type signInProps = {
   email: string;

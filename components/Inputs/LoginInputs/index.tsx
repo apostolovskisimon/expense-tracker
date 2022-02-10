@@ -8,12 +8,14 @@ type Props = {
   iconName?: string;
   onChange: (name: string, value: string) => void;
   value?: string;
+  label?: string;
 };
 
 const LoginInput = ({
   name = "",
   placeholder = "",
   type = "text",
+  label = "",
   iconName,
   onChange,
   value,
@@ -35,19 +37,20 @@ const LoginInput = ({
   };
 
   return (
-    <div>
-      <label className="relative block w-full ">
-        <input
-          className="placeholder:italic mb-6 text-black placeholder:text-black block w-full h-14 border border-gray-300 rounded-md py-2 pl-3 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-          placeholder={placeholder}
-          type={type}
-          name={name}
-          onInput={(e) => onChange(name, e.currentTarget.value)}
-          value={value}
-        />
-        <span className="absolute inset-y-0 right-4 flex items-center pl-2">
-          {handleIcon()}
-        </span>
+    <div className="input-main">
+      <label className="label">
+        <p className="label-text">{label}</p>
+        <div className="input-cont">
+          <input
+            className=""
+            placeholder={placeholder}
+            type={type}
+            name={name}
+            onInput={(e) => onChange(name, e.currentTarget.value)}
+            value={value}
+          />
+          {/* <span className="icon">{handleIcon()}</span> */}
+        </div>
       </label>
     </div>
   );

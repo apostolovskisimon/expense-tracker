@@ -23,7 +23,11 @@ $fsBig: 2rem;
 @import 'normalize';
 @import 'mixins/responsiveness';
 @import 'home/home';
+@import 'components/components';
 @import 'nav/nav';
 @import 'sidemenu/sidemenu';
+@import 'onboarding/onboarding';
+@import 'inputs/inputs';
+@import 'buttons/buttons';
 // imports
 //

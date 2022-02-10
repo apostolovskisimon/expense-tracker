@@ -1,0 +1,100 @@
+.onboarding-bg {
+    // background-image: url('../../assets/bg-image.png');
+    width: 100%;
+    background-image: url(https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1174&q=80);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    padding: 50px 0;
+    @include displayFlex(column-reverse);
+    @include tablet {
+        @include displayFlex(row);
+        justify-content: space-around;
+    }
+    .modal {
+        width: 90%;
+        height: 70%;
+        margin: auto 0;
+        border: 2px solid $darkGreen;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.171);
+        padding: 30px 20px;
+        text-align: center;
+        h2 {
+            margin-bottom: 30px;
+        }
+        @include tablet {
+            width: 550px
+        }
+        .info {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .social {
+            width: 100%;
+            margin-top: 20px;
+            @include displayFlex;
+            button,
+            .btn-o {
+                background-color: $darkGreen;
+                color: white;
+                border: 2px solid transparent;
+                border-radius: 10px;
+                width: 140px;
+                height: 50px;
+                .btn-text {
+                    align-self: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .icon {
+                    margin-right: 15px;
+                }
+            }
+        }
+        .to-reg {
+            margin-top: 30px;
+        }
+    }
+    .modal-desc {
+        margin-bottom: 30px;
+        border: 2px solid $darkGreen;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.171);
+        padding: 30px 20px;
+        width: 90%;
+        // height: 500px;
+        text-align: center;
+        @include tablet {
+            width: 550px;
+            height: 500px;
+            margin: 0;
+            // .img {
+            //     height: 250px;
+            // }
+        }
+        p {
+            margin-top: 20px;
+            text-align: justify;
+        }
+        .img {
+            margin-top: 20px;
+            border-radius: 15px;
+            width: 75%;
+            height: 180px;
+            position: relative;
+            margin: 30px auto;
+            @include tablet {
+                height: 60%;
+                width: 90%;
+            }
+            img {
+                border-radius: 15px;
+            }
+        }
+    }
+}
